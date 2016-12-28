@@ -1,0 +1,35 @@
+body {
+	margin: 60px auto;
+	width: 70%;
+	background-color: #0E0B16
+}
+h2 {
+    font-size: 2em;
+    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+    color: #E7DFDD;
+}
+h2.results {
+    font-size: 2em;
+    font-family:'Helvetica', 'Arial', 'Sans-Serif';
+    color: #B82601;
+}
+p {
+    font-size: 1.5em;
+    line-height: 1.4em;
+    color: #E7DFDD;
+}
+footer {
+    border-top: 1px solid #d5d5d5;
+    font-size: .8em;
+}
+table{
+	border: 3px;
+	border-spacing: 2px;
+	padding: 2px;
+}
+.evenrow {
+	 background-color: #6D7993;
+}
+.oddrow {
+	 background-color: #9099A2;
+}
