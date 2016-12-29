@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="UTF-8" />
+    <title>React Tutorial</title>
+    <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.3.1/redux.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/4.4.0/react-redux.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<script type="text/javascript">
+		function evaluateResults()
+		{
+			$(document).ready(function(){
+				let sum = getSum();
+				let message = getMessage(sum);
+				
+				if (message)
+				{
+					$("#result").html("<h2 class='results'> RESULT - Your score is "+sum+", "+message+"<h2>");
+				}
+			});
+			
+		};
+
+		function getMessage(sum){
+			let message;
+
+			if(sum <= 40)
+			{
+				message = "You have a confident personality and have very few Impostor Syndrome charecteristics";
+			} else if (sum >= 41 && sum <= 60) {
+				message = "You have moderate Impostor Syndrome charecteristics and experiences";
+			} else if (sum >= 61 && sum <= 80) {
+				message = "You have frequent Impostor feelings which hamper your working style";
+			} else if (sum >= 81 && sum <= 100) {
+				message = "You have intense impostor feelings whcih frequently interfere with your career and life";
+			}
+
+			return message;
+		};
+		
+		function getSum(){
+			let sum = 0;
+			for (let i = 1; i <= 20; i++) 
+			{	
+				sum += parseInt($('input[name='+i+']:checked').val(), 10);
+			}
+			return sum;
+		};
+
+	</script>
+  </head>
+  <body>
+  <div id='content'>0</div>
+  
+  <script type="text/babel">
+  try{
+		let answerList = {radioButtonTxt_1: "1 (Not at all True)", radioButtonVal_1: "1", 
+				radioButtonTxt_2: "2 (Rarely)", radioButtonVal_2: "2", 
+				radioButtonTxt_3: "3 (Sometimes)", radioButtonVal_3: "3", 
+				radioButtonTxt_4: "4 (Often)", radioButtonVal_4: "4", 
+				radioButtonTxt_5: "5 (Very True)", radioButtonVal_5: "5" };
+
+		let buildData = [
+				{id: 1, key: 11, question: "1. I have often succeeded on a test or task even though I was afraid that I would not do well before I undertook the task", answer: answerList},
+				{id: 2, key: 22, question: "2. I can give the impression that I’m more competent than I really am", answer: answerList},
+				{id: 3,	key: 33, question: "3. I avoid evaluations if possible and have a dread of others evaluating me", answer: answerList},
+				{id: 4, key: 44, question: "4. When people praise me for something I’ve accomplished, I’m afraid I won’t be able to live up to their expectations of me in the future", answer: answerList},
+				{id: 5, key: 55, question: "5. I sometimes think I obtained my present position or gained my present success because I happened to be in the right place at the right time or knew the right people", answer: answerList},
+				{id: 6, key: 66, question: "6. I’m afraid people important to me may find out that I’m not as capable as they think I am", answer: answerList},
+				{id: 7, key: 77, question: "7. I tend to remember the incidents in which I have not done my best more than those times I have done my best", answer: answerList},
+				{id: 8, key: 88, question: "8. I rarely do a project or task as well as I’d like to do it", answer: answerList},
+				{id: 9, key: 99, question: ". Sometimes I feel or believe that my success in my life or in my job has been the result of some kind of error", answer: answerList},
+				{id: 10, key: 100, question: "10. It’s hard for me to accept compliments or praise about my intelligence or accomplishments", answer: answerList},
+				{id: 11, key: 510, question: "11. At times, I feel my success has been due to some kind of luck", answer: answerList},
+				{id: 12, key: 120, question: "12. I’m disappointed at times in my present accomplishments and think I should have accomplished much more", answer: answerList},
+				{id: 13, key: 130, question: "13. Sometimes I’m afraid others will discover how much knowledge or ability I really lack", answer: answerList},
+				{id: 14, key: 140, question: "14. I’m often afraid that I may fail at a new assignment or undertaking even though I generally do well at what I attempt", answer: answerList},
+				{id: 15, key: 150, question: "15. When I’ve succeeded at something and received recognition for my accomplishments, I have doubts that I can keep repeating that success", answer: answerList},
+				{id: 16, key: 160, question: "16. If I receive a great deal of praise and recognition for something I’ve accomplished, I tend to discount the importance of what I’ve done", answer: answerList},
+				{id: 17, key: 170, question: "17. I often compare my ability to those around me and think they may be more intelligent than I am", answer: answerList},
+				{id: 18, key: 180, question: "18. I often worry about not succeeding with a project or examination, even though others around me have considerable confidence that I will do well", answer: answerList},
+				{id: 19, key: 190, question: "19. If I’m going to receive a promotion or gain recognition of some kind, I hesitate to tell others until it is an accomplished fact", answer: answerList},
+				{id: 20, key: 200, question: "20. I feel bad and discouraged if I’m not “the best” or at least “very special” in situations that involve achievement", answer: answerList},
+			];
+
+		class BuildTable extends React.Component {
+			render () {
+				return (<div className='BuildTable'>
+						<BuildRows data={buildData}/>
+						
+				</div>);
+			}
+		}
+
+		class BuildRows extends React.Component {
+			render() {
+				const oddStyle = {
+				  color: 'blue',
+				  padding:2,
+				  margin:2,
+				  backgroundColor:"#efefef",
+				  border: "1px dotted black",
+				};
+
+				var QuestionRows = this.props.data.map( function(ansrow) {
+					return(
+							<tbody key={ansrow.key}>
+								<tr>
+									<td style={oddStyle} colSpan='5'>{ansrow.question}</td>
+								</tr>
+								<tr>
+									<td><input type="radio" name={ansrow.id} value={ansrow.answer.radioButtonVal_1}/>{ansrow.answer.radioButtonTxt_1}</td>
+									<td><input type="radio" name={ansrow.id} value={ansrow.answer.radioButtonVal_2}/>{ansrow.answer.radioButtonTxt_2}</td>
+									<td><input type="radio" name={ansrow.id} value={ansrow.answer.radioButtonVal_3}/>{ansrow.answer.radioButtonTxt_3}</td>
+									<td><input type="radio" name={ansrow.id} value={ansrow.answer.radioButtonVal_4}/>{ansrow.answer.radioButtonTxt_4}</td>
+									<td><input type="radio" name={ansrow.id} value={ansrow.answer.radioButtonVal_5}/>{ansrow.answer.radioButtonTxt_5}</td>
+								</tr>
+							</tbody>
+					);
+				});
+
+				return (
+					<table>
+						{QuestionRows}
+					</table>
+				);
+			};
+		}
+
+		class BuildHeader extends React.Component {
+			render () {
+				return (<h1>Impostor Syndrome Test</h1>);
+			}
+		}
+
+		ReactDOM.render(
+		<div>
+			<BuildHeader />
+			<div id="result"><h2>Results appear here</h2></div>
+			<BuildTable  data={buildData}/>
+		</div>,
+
+			document.getElementById('content')
+		);
+
+
+
+  }
+  catch(e)  {
+  	console.log(e);
+  }
+ 
+  </script>
+  <br>
+<button onClick=evaluateResults();>Submit</button>
+</body>
+</html>
